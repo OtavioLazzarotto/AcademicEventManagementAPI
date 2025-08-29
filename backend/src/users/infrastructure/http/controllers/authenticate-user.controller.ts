@@ -10,11 +10,11 @@ export async function AuthenticateUserController(
   response: Response
 ) {
   const authenticateUserSchemaBody = z.object({
-    username: z.string(),
+    email: z.string(),
     password: z.string(),
   });
 
-  const { username, password } = dataValidation(
+  const { email, password } = dataValidation(
     authenticateUserSchemaBody,
     request.body
   );
@@ -22,24 +22,14 @@ export async function AuthenticateUserController(
   const authenticateUserUseCase: AuthenticateUserUseCase.UseCase =
     container.resolve("AuthenticateUserUseCase");
 
-  const user = await authenticateUserUseCase.execute({ username, password });
+  const user = await authenticateUserUseCase.execute({ email, password });
 
   const authProviderJwt: JwtAuthProvider = container.resolve("AuthProviderJwt");
 
   const access_token = authProviderJwt.generateAuthKey(user.id, user.roles);
 
   response.status(200).json({
-    message: `Usuário logado com sucesso! Seja bem vindo ${user.name}`,
-    user: {
-      id: user.id,
       name: user.name,
-      username: user.username,
-      roles: user.roles,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    },
-    access_token: {
       access_token: access_token,
-    },
   });
 }

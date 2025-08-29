@@ -10,8 +10,6 @@ import {
   UserModel,
   StatusPermission,
 } from "../../../domain/models/users.model";
-import { Consultation } from "@/consultation/infrastructure/typeorm/entities/consultation.entity";
-import { nullable } from "zod";
 
 @Entity("users")
 export class User implements UserModel {
@@ -22,18 +20,13 @@ export class User implements UserModel {
   name: string;
 
   @Column()
-  username: string;
+  email: string;
 
   @Column()
   password: string;
 
   @Column({ type: "enum", enum: StatusPermission })
   roles: StatusPermission;
-
-  @OneToMany(() => Consultation, (consultation) => consultation.professional, {
-    nullable: false,
-  })
-  consultation: Consultation;
 
   @CreateDateColumn()
   created_at: Date;

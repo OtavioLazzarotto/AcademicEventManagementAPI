@@ -8,7 +8,7 @@ export namespace UpdateUsersUseCase {
   export type Input = {
     id: string;
     name: string;
-    username: string;
+    email: string;
     password: string;
     roles: StatusPermission;
   };
@@ -31,8 +31,8 @@ export namespace UpdateUsersUseCase {
         userUpdate.name = input.name;
       }
 
-      if (input.username) {
-        userUpdate.username = input.username;
+      if (input.email) {
+        userUpdate.email = input.email;
       }
 
       if (input.password) {

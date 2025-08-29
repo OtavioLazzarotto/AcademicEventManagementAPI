@@ -14,14 +14,14 @@ export async function UpdateUserController(
 
   const updateUserSchemaBody = z.object({
     name: z.string().optional(),
-    username: z.string().optional(),
+    email: z.string().email().optional(),
     password: z.string().optional(),
     roles: z.enum(["admin", "user"]).optional(),
   });
 
   const { id } = dataValidation(updateUserSchemaParams, request.params);
 
-  const { name, username, password, roles } = dataValidation(
+  const { name, email, password, roles } = dataValidation(
     updateUserSchemaBody,
     request.body
   );
@@ -32,7 +32,7 @@ export async function UpdateUserController(
   const userUpdate = await updateUsersUseCase.execute({
     id,
     name,
-    username,
+    email,
     password,
     roles,
   });

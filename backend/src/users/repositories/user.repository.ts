@@ -10,7 +10,6 @@ export type CreateUserProps = {
 
 export interface UsersRepository
   extends RepositoryInterface<UserModel, CreateUserProps> {
-  findByUsername(username: string): Promise<UserModel>;
-  findByName(name: string): Promise<UserModel>;
-  conflictingUsername(username: string): Promise<void>;
+  findByEmail(email: string): Promise<UserModel>;
+  conflictingEmail(email: string): Promise<void>;
 }

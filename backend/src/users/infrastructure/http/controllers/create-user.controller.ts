@@ -10,12 +10,12 @@ export async function CreateUserController(
 ) {
   const createUserSchemaBody = z.object({
     name: z.string(),
-    username: z.string(),
+    email: z.string().email(),
     password: z.string(),
     roles: z.enum(["PROFISSIONAL_SAUDE", "SECRETARIA"]),
   });
 
-  const { name, username, password, roles } = dataValidation(
+  const { name, email, password, roles } = dataValidation(
     createUserSchemaBody,
     request.body
   );
@@ -25,7 +25,7 @@ export async function CreateUserController(
 
   const user = await createUserUseCase.execute({
     name,
-    username,
+    email,
     password,
     roles,
   });

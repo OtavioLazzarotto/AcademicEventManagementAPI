@@ -6,7 +6,7 @@ import { InvalidCredentialsError } from "@/common/domain/errors/invalid-credenti
 
 export namespace AuthenticateUserUseCase {
   export type Input = {
-    username: string;
+    email: string;
     password: string;
   };
 
@@ -22,11 +22,11 @@ export namespace AuthenticateUserUseCase {
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      if (!input.username || !input.password) {
+      if (!input.email || !input.password) {
         throw new InvalidCredentialsError("Invalid credentials");
       }
 
-      const user = await this.usersRepository.findByUsername(input.username);
+      const user = await this.usersRepository.findByEmail(input.email);
 
       const passwordMatch = await this.bcryptjsHashProvider.compareHash(
         input.password,

@@ -8,10 +8,6 @@ import {
   CreateUserProps,
   UsersRepository,
 } from "@/users/repositories/user.repository";
-import {
-  SearchInput,
-  SearchOutput,
-} from "@/common/domain/repositories/repository.interface";
 
 @injectable()
 export class UsersTypeormRepository implements UsersRepository {
@@ -20,35 +16,21 @@ export class UsersTypeormRepository implements UsersRepository {
     private usersRepository: Repository<User>
   ) {}
 
-  search(props: SearchInput): Promise<SearchOutput<UserModel>> {
-    throw new Error("Method not implemented.");
-  }
-
-  async findByUsername(username: string): Promise<UserModel> {
-    const user = await this.usersRepository.findOneBy({ username });
+  async findByEmail(email: string): Promise<UserModel> {
+    const user = await this.usersRepository.findOneBy({ email });
 
     if (!user) {
-      throw new NotFoundError(`User not found using username ${username}`);
+      throw new NotFoundError(`User not found using email ${email}`);
     }
 
     return user;
   }
 
-  async findByName(name: string): Promise<UserModel> {
-    const user = await this.usersRepository.findOneBy({ name });
-
-    if (!user) {
-      throw new NotFoundError(`User not found using name ${name}`);
-    }
-
-    return user;
-  }
-
-  async conflictingUsername(username: string): Promise<void> {
-    const user = await this.usersRepository.findOneBy({ username });
+  async conflictingEmail(email: string): Promise<void> {
+    const user = await this.usersRepository.findOneBy({ email });
 
     if (user) {
-      throw new ConflictError("Username is already being used");
+      throw new ConflictError("Email is already being used");
     }
   }
 

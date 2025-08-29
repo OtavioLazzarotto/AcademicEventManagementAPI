@@ -8,7 +8,7 @@ import { BadRequestError } from "@/common/domain/errors/badRequest-error";
 export namespace CreateUsersUseCase {
   export type Input = {
     name: string;
-    username: string;
+    email: string;
     password: string;
     roles: StatusPermission;
   };
@@ -26,11 +26,11 @@ export namespace CreateUsersUseCase {
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      if (!input.name || !input.username || !input.password || !input.roles) {
+      if (!input.name || !input.email || !input.password || !input.roles) {
         throw new BadRequestError("Input data not provided or invalid");
       }
 
-      await this.usersRepository.conflictingUsername(input.username);
+      await this.usersRepository.conflictingEmail(input.email);
 
       const user = this.usersRepository.create(input);
 
