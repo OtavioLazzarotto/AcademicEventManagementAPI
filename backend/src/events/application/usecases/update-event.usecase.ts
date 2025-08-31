@@ -7,7 +7,7 @@ export namespace UpdateEventUseCase {
 
     export type Input = {
         id: string;
-        name?: string;
+        title?: string;
         description?: string;
         date?: Date;
         location?: string;
@@ -19,7 +19,7 @@ export namespace UpdateEventUseCase {
     export class UseCase {
         constructor(
             @inject("EventsRepository")
-            private eventsRepository: EventRepository{}
+            private eventsRepository: EventRepository
         ) {}
 
         async execute(input: Input): Promise<Output> {
@@ -30,8 +30,8 @@ export namespace UpdateEventUseCase {
                 throw new BadRequestError("Event not found");
             }
 
-            if(input.name) {
-                event.name = input.name;
+            if(input.title) {
+                event.title = input.title;
             }
 
             if(input.description) {

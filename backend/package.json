@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "npx dotenv-cli -e .env -- ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/common/infrastructure/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "typeorm:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate -d src/common/infrastructure/typeorm/index.ts",
-    "typeorm:migrate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/common/infrastructure/typeorm/index.ts src/common/infrastructure/typeorm/migrations"
+    "typeorm:create": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:create -d src/common/infrastructure/typeorm/migrations/CreateMigrationsTable",
+    "typeorm:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate ./src/common/infrastructure/typeorm/migrations/GenerateMigration -d ./src/common/infrastructure/typeorm/index.ts",
+    "typeorm:migrate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d ./src/common/infrastructure/typeorm/index.ts"
   },
   "keywords": [],
   "author": "",

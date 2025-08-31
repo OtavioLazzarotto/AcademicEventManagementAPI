@@ -1,19 +1,19 @@
 import { UserModel } from "@/users/domain/models/users.model";
 import { inject, injectable } from "tsyringe";
 import { Repository } from "typeorm";
-import { User } from "../entities/users.entitty";
 import { NotFoundError } from "@/common/domain/errors/not-found-error";
 import { ConflictError } from "@/common/domain/errors/conflict-error";
 import {
   CreateUserProps,
   UsersRepository,
 } from "@/users/repositories/user.repository";
+import { Users } from "../entities/users.entity";
 
 @injectable()
 export class UsersTypeormRepository implements UsersRepository {
   constructor(
     @inject("UsersDefaultTypeormRepository")
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<Users>
   ) {}
 
   async findByEmail(email: string): Promise<UserModel> {

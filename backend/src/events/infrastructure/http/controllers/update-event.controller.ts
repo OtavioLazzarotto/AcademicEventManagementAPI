@@ -19,7 +19,7 @@ export async function UpdateEventController(
     );
 
     const updateEventSchemaBody = z.object({
-        name: z.string().optional(),
+        title: z.string().optional(),
         description: z.string().optional(),
         date: z.string().refine((date) => !isNaN(Date.parse(date)), {
         message: "Invalid date format",
@@ -27,7 +27,7 @@ export async function UpdateEventController(
         location: z.string().optional(),
     });
 
-    const { name, description, date, location } = dataValidation(
+    const { title, description, date, location } = dataValidation(
         updateEventSchemaBody,
         request.body
     );
@@ -37,7 +37,7 @@ export async function UpdateEventController(
 
     await updateEventUseCase.execute({
         id,
-        name,
+        title,
         description,
         date,
         location,

@@ -2,10 +2,11 @@ import { RepositoryInterface } from "@/common/domain/repositories/repository.int
 import { EventModel } from "../domain/models/event.model";
 
 export interface CreateEventProps {
-    name: string;
+    title: string;
     description: string;
     date: Date;
     location: string;
+    createdBy: string;
 }
 
 export interface EventRepository

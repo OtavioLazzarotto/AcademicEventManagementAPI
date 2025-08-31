@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { z } from "zod";
 import { CreateUsersUseCase } from "@/users/application/usecases/create-user.usecase";
+import { StatusPermission } from "@/users/domain/models/users.model";
 
 export async function CreateUserController(
   request: Request,
@@ -12,7 +13,7 @@ export async function CreateUserController(
     name: z.string(),
     email: z.string().email(),
     password: z.string(),
-    roles: z.enum(["PROFISSIONAL_SAUDE", "SECRETARIA"]),
+    roles: z.nativeEnum(StatusPermission).optional(),
   });
 
   const { name, email, password, roles } = dataValidation(
@@ -23,12 +24,12 @@ export async function CreateUserController(
   const createUserUseCase: CreateUsersUseCase.UseCase =
     container.resolve("CreateUsersUseCase");
 
-  const user = await createUserUseCase.execute({
+  await createUserUseCase.execute({
     name,
     email,
     password,
-    roles,
+    roles
   });
 
-  response.status(200).json([{ message: "Usuário criado com sucesso!" }, user]);
+  response.status(200).json([{ message: "Usuário criado com sucesso!" }]);
 }

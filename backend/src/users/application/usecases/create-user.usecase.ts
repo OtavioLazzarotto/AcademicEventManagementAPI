@@ -10,7 +10,7 @@ export namespace CreateUsersUseCase {
     name: string;
     email: string;
     password: string;
-    roles: StatusPermission;
+    roles?: StatusPermission;
   };
 
   export type Output = UserOutput;
@@ -26,7 +26,7 @@ export namespace CreateUsersUseCase {
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      if (!input.name || !input.email || !input.password || !input.roles) {
+      if (!input.name || !input.email || !input.password) {
         throw new BadRequestError("Input data not provided or invalid");
       }
 

@@ -5,7 +5,7 @@ export type CreateUserProps = {
   name: string;
   email: string;
   password: string;
-  roles: StatusPermission;
+  roles?: StatusPermission;
 };
 
 export interface UsersRepository

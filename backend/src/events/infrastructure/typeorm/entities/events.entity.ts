@@ -1,28 +1,30 @@
-import { EventModel } from "@/events/domain/models/event.model";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Users } from "@/users/infrastructure/typeorm/entities/users.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("events")
-export class Event implements EventModel {
-    
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+export class Events {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  title: string;
 
-    @Column()
-    description: string;
-    
-    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-    date: Date;
+  @Column("text")
+  description: string;
 
-    @Column()
-    location: string;
-    
-    @CreateDateColumn()
-    created_at: Date;
+  @Column({ type: "timestamp" })
+  date: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+  @Column()
+  location: string;
 
+  @ManyToOne(() => Users, (user) => user.eventsCreated, { eager: true })
+  @JoinColumn({ name: "created_by" })
+  createdBy: Users;
+
+  @CreateDateColumn({ name: "created_at" })
+  created_at: Date;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updated_at: Date;
 }

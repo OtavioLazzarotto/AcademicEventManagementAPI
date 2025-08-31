@@ -9,7 +9,7 @@ export async function CreateEventController(
   response: Response
 ) {
   const createEventSchemaBody = z.object({
-    name: z.string(),
+    title: z.string(),
     description: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {
       message: "Invalid date format",
@@ -17,7 +17,10 @@ export async function CreateEventController(
     location: z.string(),
   });
 
-  const { name, description, date, location } = dataValidation(
+
+  const createdBy = request.user.id;
+
+  const { title, description, date, location} = dataValidation(
     createEventSchemaBody,
     request.body
   );
@@ -26,10 +29,11 @@ export async function CreateEventController(
     container.resolve("CreateEventsUseCase");
 
   await createEventUseCase.execute({
-    name,
+    title,
     description,
     date,
     location,
+    createdBy
   });
 
   response.status(200).json([{ message: "Evento criado com sucesso!" }]);
