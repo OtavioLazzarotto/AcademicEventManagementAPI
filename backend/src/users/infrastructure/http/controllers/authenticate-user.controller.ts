@@ -29,7 +29,15 @@ export async function AuthenticateUserController(
   const access_token = authProviderJwt.generateAuthKey(user.id, user.roles);
 
   response.status(200).json({
+    message: `Usuário logado com sucesso! Seja bem vindo ${user.name}`,
+    user: {
+      id: user.id,
       name: user.name,
-      access_token: access_token,
+      username: user.email,
+      roles: user.roles,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    },
+    access_token
   });
 }

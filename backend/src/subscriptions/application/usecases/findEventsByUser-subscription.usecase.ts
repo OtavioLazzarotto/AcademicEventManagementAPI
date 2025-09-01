@@ -18,8 +18,6 @@ export namespace FindEventsByUserSubscriptionUsecase {
 
         async execute(input: Input): Promise<Output> {
 
-            console.log(input);
-
             const subscriptions = await this.subscriptionsRepository.findEventsByUser(input.userId);
 
             return subscriptions.map(subscription => ({

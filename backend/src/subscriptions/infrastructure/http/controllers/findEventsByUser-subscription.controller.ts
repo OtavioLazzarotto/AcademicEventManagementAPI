@@ -6,8 +6,6 @@ export async function FindEventsByUserSubscriptionController(request: Request, r
 
     const findEventsByUserSubscriptionUsecase: FindEventsByUserSubscriptionUsecase.Usecase = container.resolve("FindEventsByUserSubscriptionUsecase");
 
-    console.log("User:"+ request.user);
-
     const subscriptions = await findEventsByUserSubscriptionUsecase.execute({
         userId: request.user.id
     });

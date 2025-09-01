@@ -14,7 +14,7 @@ export class Subscriptions {
   @ManyToOne(() => Users, { eager: true })
   user: Users;
 
-  @ManyToOne(() => Events, { eager: true })
+  @ManyToOne(() => Events, { eager: true, onDelete: "CASCADE" }, )
   event: Events;
 
   @CreateDateColumn({ name: "created_at" })
