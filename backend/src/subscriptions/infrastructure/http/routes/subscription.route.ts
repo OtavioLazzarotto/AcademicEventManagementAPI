@@ -10,7 +10,7 @@ const subscriptionRouter = Router();
 subscriptionRouter.post("/subscribe", isAuth, SubscribreSubscriptionController);
 
 subscriptionRouter.get(
-  "/events/user",
+  "/events/:userId",
   isAuth,
   FindEventsByUserSubscriptionController
 );

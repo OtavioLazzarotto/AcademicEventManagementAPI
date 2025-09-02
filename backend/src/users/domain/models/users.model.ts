@@ -1,8 +1,8 @@
 import { Events } from "@/events/infrastructure/typeorm/entities/events.entity";
 
 export enum StatusPermission {
-  ADM = "Administrador",
-  USER = "User",
+  ADM = "admin",
+  USER = "user",
 }
 export interface UserModel {
   id: string;

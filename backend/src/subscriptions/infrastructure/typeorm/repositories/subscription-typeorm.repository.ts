@@ -19,6 +19,7 @@ export class SubscriptionTypeormRepository implements SubscriptionsRepository {
   async subscribe(props: CreateSubscriptionProps): Promise<SubscriptionModel> {
 
     return this.subscriptionRepository.save(props);
+  
   }
 
   async findEventsByUser(userId: string): Promise<SubscriptionModel[]> {
