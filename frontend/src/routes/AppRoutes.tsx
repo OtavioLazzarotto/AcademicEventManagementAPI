@@ -10,6 +10,9 @@ import LayoutWithNavbar from "../components/navbar/LayoutWithNavbar";
 import List from "../pages/Events/List/List";
 import RegisterEvent from "../pages/Events/Register/RegisterEvent";
 import UpdateEvent from "../pages/Events/Update/UpdateEvent";
+import { MyScriptions } from "../components/navbar/styled";
+import Scriptions from "../pages/User/Scriptions/Scriptions";
+import ListUserByEvents from "../pages/Events/ListUserByEvents/ListUserByEvents";
 
 const PrivateRoute = ({
   children,
@@ -53,6 +56,15 @@ const AppRoutes = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/eventos/lista-de-inscritos/:eventId"
+            element={
+              <PrivateRoute requiredRoles={[StatusPermission.ADM]}>
+                <ListUserByEvents />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/minhas-inscrições" element={<Scriptions/>} />
         </Route>
 
         <Route path="/login" element={<Login />} />

@@ -23,12 +23,11 @@ const Navbar = () => {
       );
     };
 
-    updateDateTime(); 
-    const interval = setInterval(updateDateTime, 1000); 
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 1000);
 
     return () => clearInterval(interval);
   }, []);
-
 
   const handleLogout = () => {
     setAuth(false);
@@ -43,9 +42,11 @@ const Navbar = () => {
         <N.Date>{hourActual}</N.Date>
         {user?.name && <p>Olá, {user.name}</p>}
 
-        <N.MyScriptions>
-          Minhas Inscrições
-        </N.MyScriptions>
+        {user?.roles == "user" && (
+          <N.MyScriptions onClick={() => navigate("/minhas-inscrições")}>
+            Minhas Inscrições
+          </N.MyScriptions>
+        )}
 
         <N.Logout onClick={handleLogout} aria-label="Fazer logout">
           Sair

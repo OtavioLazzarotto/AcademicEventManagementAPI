@@ -89,6 +89,18 @@ export const EventInfo = styled.p`
   color: #666;
 `;
 
+export const UsersList = styled.ul`
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 8px;
+`;
+
+export const UserItem = styled.li`
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #444;
+`;
+
 export const Message = styled.div`
   width: 50%;
   margin: 20px auto;
@@ -187,25 +199,6 @@ export const DeleteButton = styled.button`
 
   &:hover {
     background-color: #c82333;
-  }
-  &:active {
-    transform: translateY(1px);
-  }
-`;
-
-export const ListEventsButton = styled.button`
-  background-color: #5a5a5aff;
-  color: white;
-  border: 1px solid #3a3a3aff;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  font-family: "Arial", sans-serif;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-
-  &:hover {
-    background-color: #555050ff;
   }
   &:active {
     transform: translateY(1px);

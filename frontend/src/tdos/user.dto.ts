@@ -1,6 +1,6 @@
 export enum StatusPermission {
-  ADM = "Administrador",
-  USER = "User",
+  ADM = "admin",
+  USER = "user",
 }
 
 export interface UserDto {

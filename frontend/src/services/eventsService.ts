@@ -17,6 +17,5 @@ export const updateEvent = async (eventId: string, event: EventDto): Promise<voi
 };
 
 export const deleteEvent = async (id: string): Promise<void> => {
-  console.log(id)
   await api.delete(`/events/${id}`);
 };

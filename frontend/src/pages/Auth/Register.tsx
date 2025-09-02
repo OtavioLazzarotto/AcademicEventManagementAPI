@@ -23,6 +23,9 @@ const Register = () => {
 
   const onSubmit = (user: any) => {
     mutation.mutate(user);
+
+    alert("Usuário Cadastrado com sucesso!!")
+
     nav("/login");
   };
 
@@ -61,8 +64,8 @@ const Register = () => {
         <R.FormControl>
           <R.LabelForm htmlFor="">Tipo de Usuário: </R.LabelForm>
           <R.SelectForm {...register("roles")}>
-            <option value="Administrador">Administrador</option>
-            <option value="User">User</option>
+            <option value="admin">Administrador</option>
+            <option value="user">User</option>
           </R.SelectForm>
         </R.FormControl>
 

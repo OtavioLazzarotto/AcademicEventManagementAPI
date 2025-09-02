@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchEvents, deleteEvent } from "../../../services/eventsService";
 import { subscribeToEvent } from "../../../services/subscriptionService";
 import * as S from "./styles";
@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 function List() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     data: events,
     isLoading,
     isError,
     error,
+    refetch
   } = useQuery({
     queryKey: ["events"],
     queryFn: fetchEvents,
@@ -22,17 +24,26 @@ function List() {
   const subscribeMutation = useMutation({
     mutationFn: ({ eventId, userId }: { eventId: string; userId: string }) =>
       subscribeToEvent(eventId, userId),
+    onSuccess: (_, { eventId }) => {
 
-    onSuccess: () => alert("Inscrição realizada com sucesso!"),
-    
-    onError: (error) =>
-      alert(`Erro ao se inscrever: ${(error as Error).message}`),
+      alert("Inscrição feita com sucesso!!!")
+
+      queryClient.invalidateQueries({
+        queryKey: ["user-by-event", eventId],
+      });
+    },
+    onError: () => {
+      alert(`Erro ao inscrever-se, você já esta escrito nesse evento`);
+    },
   });
 
   const deleteMutation = useMutation({
+    mutationKey: ["events"],
     mutationFn: (eventId: string) => deleteEvent(eventId),
     onSuccess: () => {
       alert("Evento excluído com sucesso!");
+
+      refetch();
     },
     onError: (error) =>
       alert(`Erro ao excluir evento: ${(error as Error).message}`),
@@ -63,8 +74,7 @@ function List() {
     <S.Container>
       <S.Heading>Lista de Eventos</S.Heading>
 
-      {/* Botão de adicionar evento apenas para administradores */}
-      {user?.roles === "Administrador" && events!.length >= 0 && (
+      {user?.roles === "admin" && events!.length >= 0 && (
         <S.AddButton to="/eventos/cadastrar">Adicionar Evento</S.AddButton>
       )}
 
@@ -86,7 +96,7 @@ function List() {
                 Inscreva-se
               </S.SubscribeButton>
 
-              {user?.roles === "Administrador" && (
+              {user?.roles === "admin" && (
                 <>
                   <S.EditButton
                     onClick={() => navigate(`/eventos/editar/${event.id}`)}
@@ -96,6 +106,10 @@ function List() {
                   <S.DeleteButton onClick={() => handleDelete(event.id)}>
                     Excluir
                   </S.DeleteButton>
+
+                  <S.ListEventsButton onClick={() => navigate(`/eventos/lista-de-inscritos/${event.id}`)}>
+                    Ver inscritos
+                  </S.ListEventsButton>
                 </>
               )}
             </S.BtnGroup>

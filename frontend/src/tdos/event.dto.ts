@@ -1,3 +1,5 @@
+import { UserDto } from "./user.dto";
+
 export interface EventDto {
   id: string;
   title: string;
@@ -21,4 +23,12 @@ export interface EventResponse {
   };
   created_at: Date;
   updated_at: Date;
+}
+
+export interface EventByUserResponse {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  event: EventDto;
+  user: Omit <UserDto, "password">
 }
