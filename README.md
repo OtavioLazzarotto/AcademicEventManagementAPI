@@ -57,6 +57,7 @@ src/
 - [PostgreSQL](https://www.postgresql.org/)
 - [Tsyringe](https://github.com/microsoft/tsyringe)
 - [Zod](https://zod.dev/)
+- [Docker](https://hub.docker.com/)
 
 ---
 
@@ -64,7 +65,7 @@ src/
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-repo/backend.git
+   git clone https://github.com/OtavioLazzarotto/AcademicEventManagementAPI.git
    cd backend
    ```
 
@@ -73,15 +74,32 @@ src/
    npm install
    ```
 
-3. **Crie o arquivo `.env`:**
+3. **Crie o arquivo `.env` na raiz da pasta backend**
    ```env
-   PORT=3000
-   DATABASE_URL=postgres://user:password@localhost:5432/nome_do_banco
-   JWT_SECRET=sua_chave_secreta
+
+      PORT=3000
+
+      #MY_SECRET
+      MY_SECRET=Suachavesecreta
+      JWT_EXPIRES_IN=1d
+
+      #URL API
+      API_URL=http://localhost:3000
+
+
+      #DATABASE
+      DB_TYPE=postgres
+      DB_HOST=localhost
+      DB_PORT=5432
+      DB_SCHEMA=public
+      DB_NAME=nome_do_banco
+      DB_USER=seu_usuario
+      DB_PASS=sua_senha
    ```
 
 4. **Rode as migrations:**
    ```bash
+   npm run typeorm:generate
    npm run typeorm:migrate
    ```
 
