@@ -59,9 +59,19 @@ src/
 - [Zod](https://zod.dev/)
 - [Docker](https://hub.docker.com/)
 
+
+---
+
+### Requisitos:
+
+- [Node.js](https://nodejs.org/)
+- [Docker](https://hub.docker.com/)
+
 ---
 
 ## ⚙️ Configuração do Ambiente
+
+## BACKEND
 
 1. **Clone o repositório:**
    ```bash
@@ -96,19 +106,57 @@ src/
       DB_USER=seu_usuario
       DB_PASS=sua_senha
    ```
+4. **Inicie o docker e rode o seguinte comando:**
+   ```bash
+      docker compose up -d
+   ```
 
-4. **Rode as migrations:**
+5. **Rode as migrations:**
    ```bash
    npm run typeorm:generate
    npm run typeorm:migrate
    ```
 
-5. **Inicie o servidor em modo desenvolvimento:**
+6. **Inicie o servidor em modo desenvolvimento:**
    ```bash
    npm run dev
    ```
 
 ---
+
+## FRONTEND
+
+## 🛠️ Tecnologias Utilizadas
+
+- [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Styled Components](https://styled-components.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [React Router DOM](https://reactrouter.com/)
+- [React Query](https://tanstack.com/query)
+- [Axios](https://axios-http.com/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+
+---
+
+### 1️⃣ Pré-requisitos
+- Node.js 18+
+- npm
+
+1. **Acesse a pasta:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+3. **Inicie o servidor em modo desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
 
 ## 📌 Scripts Disponíveis
 
@@ -116,5 +164,6 @@ src/
 - `npm run typeorm` → Executa o CLI do TypeORM.
 - `npm run typeorm:generate` → Gera migration a partir das entidades.
 - `npm run typeorm:migrate` → Executa as migrations.
+- `docker compose up -d` → Inicia o banco de dados no docker.
 
 ---
